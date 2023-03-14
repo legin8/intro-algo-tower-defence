@@ -28,11 +28,14 @@ public class MonsterData : MonoBehaviour
     
             for (int i = 0; i < levels.Count; i++)
             {
-                if (levelVisualization != null) 
-                if (i == currentLevelIndex)         
-                    levels[i].visualization.SetActive(true);        
-                else        
-                    levels[i].visualization.SetActive(false);           
+                if (levelVisualization != null) {
+                    if (i == currentLevelIndex){
+                        levels[i].visualization.SetActive(true);        
+                    } else {
+                        levels[i].visualization.SetActive(false);           
+                    }
+                }
+                    
             }
         }
   

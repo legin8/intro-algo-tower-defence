@@ -1,3 +1,12 @@
+/* Program name: Game Mechanics - Tower Defense
+Project file name: MoveEnemy.cs
+Author: Nigel Maynard
+Date: 22/3/23
+Language: C#
+Platform: Unity/ VS Code
+Purpose: Assessment
+Description: This is responsible for making each enemy move
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +18,12 @@ public class MoveEnemy : MonoBehaviour
     private int currentWaypoint = 0;
     private float lastWaypointSwitchTime;
     public float speed = 1.0f;
+    
     // Start is called before the first frame update
     void Start()
     {
         lastWaypointSwitchTime = Time.time;
+        GameManagerBehaviour gameManager = GameObject.Find("Game Manager").GetComponent<GameManagerBehaviour>();
     }
 
     // Update is called once per frame
@@ -37,11 +48,9 @@ public class MoveEnemy : MonoBehaviour
             else
             {
                 Destroy(gameObject);
-
+                GameManagerBehaviour gameManager = GameObject.Find("Game Manager").GetComponent<GameManagerBehaviour>();
                 AudioSource audioSource = gameObject.GetComponent<AudioSource>();
                 AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
-                
-                GameManagerBehaviour gameManager = GameObject.Find("Game Manager").GetComponent<GameManagerBehaviour>();
                 gameManager.Health -= 1;
             }
         }
@@ -54,12 +63,10 @@ public class MoveEnemy : MonoBehaviour
         Vector3 newEndPosition = waypoints [currentWaypoint + 1].transform.position;
         Vector3 newDirection = (newEndPosition - newStartPosition);
 
-        float x = newDirection.x;
-        float y = newDirection.y;
+        float x = newDirection.x, y = newDirection.y;
         float rotationAngle = Mathf.Atan2 (y, x) * 180 / Mathf.PI;
 
-        GameObject sprite = gameObject.transform.Find("Sprite").gameObject;
-        sprite.transform.rotation = Quaternion.AngleAxis(rotationAngle, Vector3.forward);
+        gameObject.transform.Find("Sprite").gameObject.transform.rotation = Quaternion.AngleAxis(rotationAngle, Vector3.forward);
     }
 
 

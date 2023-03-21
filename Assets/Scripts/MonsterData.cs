@@ -1,3 +1,12 @@
+/* Program name: Game Mechanics - Tower Defense
+Project file name: MonsterData.cs
+Author: Nigel Maynard
+Date: 22/3/23
+Language: C#
+Platform: Unity/ VS Code
+Purpose: Assessment
+Description: Holds and controls the monster data, including leveling it up.
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +15,7 @@ using UnityEngine;
 public class MonsterLevel
 {
     public int cost;
-    public GameObject visualization;
-    public GameObject bullet;
+    public GameObject visualization, bullet;
     public float fireRate;
 }
 
@@ -19,7 +27,7 @@ public class MonsterData : MonoBehaviour
     public MonsterLevel CurrentLevel
     {
 
-        get { return currentLevel; }
+        get => currentLevel;
 
         set
         {
@@ -30,17 +38,9 @@ public class MonsterData : MonoBehaviour
     
             for (int i = 0; i < levels.Count; i++)
             {
-                if (levelVisualization != null) {
-                    if (i == currentLevelIndex){
-                        levels[i].visualization.SetActive(true);        
-                    } else {
-                        levels[i].visualization.SetActive(false);           
-                    }
-                }
-                    
+                if (levelVisualization != null) levels[i].visualization.SetActive(i == currentLevelIndex);
             }
         }
-  
     }
 
     void OnEnable()
@@ -52,22 +52,12 @@ public class MonsterData : MonoBehaviour
     {
         int currentLevelIndex = levels.IndexOf(currentLevel);
         int maxLevelIndex = levels.Count - 1;
-        if (currentLevelIndex < maxLevelIndex)
-        {
-            return levels[currentLevelIndex+1];
-        }
-        else
-        {
-            return null;
-        }
+        return currentLevelIndex < maxLevelIndex ? levels[currentLevelIndex+1] : null;
     }
 
     public void IncreaseLevel()
     {
         int currentLevelIndex = levels.IndexOf(currentLevel);
-        if (currentLevelIndex < levels.Count - 1)
-        {
-            CurrentLevel = levels[currentLevelIndex + 1];
-        }
+        if (currentLevelIndex < levels.Count - 1) CurrentLevel = levels[currentLevelIndex + 1];
     }
 }

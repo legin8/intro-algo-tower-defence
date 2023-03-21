@@ -1,3 +1,12 @@
+/* Program name: Game Mechanics - Tower Defense
+Project file name: GameManagerBehaviour.cs
+Author: Nigel Maynard
+Date: 22/3/23
+Language: C#
+Platform: Unity/ VS Code
+Purpose: Assessment
+Description: Controls the Game Manager
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,27 +14,24 @@ using UnityEngine.UI;
 
 public class GameManagerBehaviour : MonoBehaviour
 {
-    public Text goldLabel;
+    public Text goldLabel, waveLabel, healthLabel;
+    public bool gameOver = false;
+    public GameObject[] nextWaveLabels, healthIndicator;
 
     private int gold;
     public int Gold {
 
-        get { return gold; }
+        get => gold;
         set
         {
             gold = value;
             goldLabel.GetComponent<Text>().text = "GOLD: " + gold;
         }
-
     }
-
-    public Text waveLabel;
-    public GameObject[] nextWaveLabels;
-    public bool gameOver = false;
 
     private int wave;
     public int Wave {
-        get { return wave; }
+        get => wave;
         set
         {
             wave = value;
@@ -40,13 +46,10 @@ public class GameManagerBehaviour : MonoBehaviour
         }
     }
 
-    public Text healthLabel;
-    public GameObject[] healthIndicator;
-
     private int health;
     public int Health
     {
-        get { return health; }
+        get => health;
         set
         {
             if (value < health) {
@@ -59,17 +62,12 @@ public class GameManagerBehaviour : MonoBehaviour
             if (health <= 0 && !gameOver)
             {
                 gameOver = true;
-                GameObject gameOverText = GameObject.FindGameObjectWithTag("GameOver");
-                gameOverText.GetComponent<Animator>().SetBool("gameOver", true);
+                GameObject.FindGameObjectWithTag("GameOver").GetComponent<Animator>().SetBool("gameOver", true);
             }
 
             for (int i = 0; i < healthIndicator.Length; i++)
             {
-                if (i < Health) {
-                    healthIndicator[i].SetActive(true);
-                } else {
-                    healthIndicator[i].SetActive(false);
-                }
+                healthIndicator[i].SetActive(i < Health);
             }
         }
     }
@@ -80,11 +78,5 @@ public class GameManagerBehaviour : MonoBehaviour
         Gold = 1000;
         Wave = 0;
         Health = 5;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

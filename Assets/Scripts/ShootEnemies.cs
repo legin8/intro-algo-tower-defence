@@ -1,3 +1,12 @@
+/* Program name: Game Mechanics - Tower Defense
+Project file name: ShootEnemies.cs
+Author: Nigel Maynard
+Date: 22/3/23
+Language: C#
+Platform: Unity/ VS Code
+Purpose: Assessment
+Description: This controls what is targeted and the shooting
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,14 +53,12 @@ public class ShootEnemies : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D other)
     {
-        if (other.gameObject.tag.Equals("Enemy"))
-        enemiesInRange.Add(other.gameObject);
+        if (other.gameObject.tag.Equals("Enemy")) enemiesInRange.Add(other.gameObject);
     }
 
     void OnTriggerExit2D (Collider2D other)
     {
-        if (other.gameObject.tag.Equals("Enemy"))
-            enemiesInRange.Remove(other.gameObject);
+        if (other.gameObject.tag.Equals("Enemy")) enemiesInRange.Remove(other.gameObject);
     }
 
     void Shoot(Collider2D target)

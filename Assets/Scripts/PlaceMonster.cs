@@ -1,3 +1,12 @@
+/* Program name: Game Mechanics - Tower Defense
+Project file name: PlaceMonster.cs
+Author: Nigel Maynard
+Date: 22/3/23
+Language: C#
+Platform: Unity/ VS Code
+Purpose: Assessment
+Description: This controls where the monster is placed and if it can be upgraded
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,17 +22,7 @@ public class PlaceMonster : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManagerBehaviour>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private bool CanPlaceMonster()
-    {
-        int cost = monsterPrefab.GetComponent<MonsterData>().levels[0].cost;
-        return monster == null && gameManager.Gold >= cost;
-    }
+    private bool CanPlaceMonster() => monster == null && gameManager.Gold >= monsterPrefab.GetComponent<MonsterData>().levels[0].cost;
 
     private bool CanUpgradeMonster()
     {

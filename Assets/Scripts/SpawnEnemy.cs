@@ -1,3 +1,12 @@
+/* Program name: Game Mechanics - Tower Defense
+Project file name: SpawnEnemy.cs
+Author: Nigel Maynard
+Date: 22/3/23
+Language: C#
+Platform: Unity/ VS Code
+Purpose: Assessment
+Description: This controls when enemies spawn, and know what wave it is currently on.
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,12 +62,11 @@ public class SpawnEnemy : MonoBehaviour
                 enemiesSpawned = 0;
                 lastSpawnTime = Time.time;
             }
+            return;
         }
-        else
-        {
-            gameManager.gameOver = true;
-            GameObject gameOverText = GameObject.FindGameObjectWithTag("GameWon");
-            gameOverText.GetComponent<Animator>().SetBool("gameOver", true);
-        }
+        
+        gameManager.gameOver = true;
+        GameObject gameOverText = GameObject.FindGameObjectWithTag("GameWon");
+        gameOverText.GetComponent<Animator>().SetBool("gameOver", true);
     }
 }

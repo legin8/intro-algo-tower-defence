@@ -14,7 +14,7 @@ using UnityEngine;
 [System.Serializable]
 public class Wave
 {
-    public GameObject enemyPrefab;
+    public GameObject enemyPrefab, enemyPrefab2;
     public float spawnInterval = 2;
     public int maxEnemies = 20;
 }
@@ -32,6 +32,7 @@ public class SpawnEnemy : MonoBehaviour
 
     private float lastSpawnTime;
     private int enemiesSpawned = 0;
+    private bool spawnSecondEnemy = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +52,9 @@ public class SpawnEnemy : MonoBehaviour
             (enemiesSpawned < waves[currentWave].maxEnemies))
             {
                 lastSpawnTime = Time.time;
-                GameObject newEnemy = (GameObject)Instantiate(waves[currentWave].enemyPrefab);
+                GameObject newEnemy = (!spawnSecondEnemy) ? (GameObject)Instantiate(waves[currentWave].enemyPrefab)
+                : (GameObject)Instantiate(waves[currentWave].enemyPrefab2);
+                spawnSecondEnemy = !spawnSecondEnemy;
                 newEnemy.GetComponent<MoveEnemy>().waypoints = waypoints;
                 enemiesSpawned++;
             }

@@ -23,7 +23,7 @@ public class Wave
 public class SpawnEnemy : MonoBehaviour
 {
     public GameObject[] waypoints;
-    public GameObject testEnemyPrefab;
+    public GameObject testEnemyPrefab, enemyPrefab2;
 
     public Wave[] waves;
     public int timeBetweenWaves = 5;
